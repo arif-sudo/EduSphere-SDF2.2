@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BCrypt.Net;
+using System.Diagnostics;
 
 namespace IT_A_ApiApp01.Controllers
 {
@@ -85,10 +87,9 @@ namespace IT_A_ApiApp01.Controllers
 
                 using (UserContext context = new UserContext())
                 {
-                    Users user = context.users.FirstOrDefault(u => u.UserName == username);
+                    Users user = context.users.SingleOrDefault(u => u.UserName == username);
                     if (user != null)
                     {
-
                         TempData["WarningMessage"] = "A user with this username already exists. Please choose a different username";
                         return RedirectToAction("Register");
                     }
@@ -97,7 +98,7 @@ namespace IT_A_ApiApp01.Controllers
                     {
                         UserName = username,
                         Email = email,
-                        Password = password
+                        Password = BCrypt.Net.BCrypt.HashPassword(password, 7)
                     };
 
                     context.users.Add(newUser);
@@ -112,74 +113,40 @@ namespace IT_A_ApiApp01.Controllers
             }
 
         }
-
-
-
-
-        // GET: Auth/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Auth/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-
-        // GET: Auth/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Auth/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Auth/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Auth/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
         private bool IsValidUser(string username, string password)
         {
-            using (var context = new UserContext())
+            try
             {
-                // Check if a user with the given username and password exists in the database
-                // Use bcrypt or sha512 hashing
-                return context.users.Any(u => u.UserName == username && u.Password == password);
+                Debug.WriteLine("test 123");
+                using (var context = new UserContext())
+                {
+                    if (context == null)
+                    {
+                        Debug.WriteLine("Context is null");
+                        return false;
+                    }
+
+                    // Check if a user with the given username exists in the database
+                    Debug.WriteLine("Before Context");  
+                    var user = context.users.SingleOrDefault(u => u.UserName == username);
+                    Debug.WriteLine("After Context");
+
+                    if (user == null)
+                    {
+                        return false;
+                    }
+                    string hashedPassword = user.Password;
+                    bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+
+                    return isPasswordCorrect;
+                }
+            }catch (Exception ex)
+            {
+                // Log or handle the exception
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return false;
             }
+
         }
     }
 }
