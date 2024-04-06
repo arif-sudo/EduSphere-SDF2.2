@@ -75,7 +75,7 @@ namespace IT_A_ApiApp01.Controllers
                 {
                     var existingBlog = context.blogs.Find(id);
                     if (existingBlog == null)
-                    {
+                    {       
                         return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"Blog with ID {id} not found.");
                     }
 

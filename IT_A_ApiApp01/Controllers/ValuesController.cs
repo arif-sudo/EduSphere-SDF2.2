@@ -18,22 +18,25 @@ namespace IT_A_ApiApp01.Controllers
         // GET api/values/5
         public string Get(int id)
         {
-            return "value";
+            return "value " + id;
         }
 
         // POST api/values
         public void Post([FromBody] string value)
         {
+            return;
         }
 
         // PUT api/values/5
         public void Put(int id, [FromBody] string value)
         {
+            return;
         }
 
         // DELETE api/values/5
         public void Delete(int id)
         {
+            return;
         }
     }
 }

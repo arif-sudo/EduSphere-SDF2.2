@@ -3,6 +3,7 @@
     margin-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
+    height: auto;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -10,4 +11,8 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.home-page{
+    height: 80vh;
 }
