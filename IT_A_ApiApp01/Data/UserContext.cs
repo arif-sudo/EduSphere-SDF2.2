@@ -20,5 +20,7 @@ namespace IT_A_ApiApp01.Data
         }
 
         public System.Data.Entity.DbSet<IT_A_ApiApp01.Models.Users> users { get; set; }
+
+        public System.Data.Entity.DbSet<IT_A_ApiApp01.Models.Blog> Blogs { get; set; }
     }
 }

@@ -1,103 +1,77 @@
 ﻿using IT_A_ApiApp01.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Web.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace IT_A_ApiApp01.Controllers
 {
-    public class BlogController : ApiController
+    public class BlogController : Controller
     {
-        public IEnumerable<Blog> Get()
+       
+        // GET: Blog
+        public async Task<ActionResult> Index()
         {
-            BlogContext context = new BlogContext();
-            using (context)
-            {
-                return context.blogs.ToList();
-            }
+            // Bypassing SSL certificate validation
+            // !Not recommended for production code,it can be useful for testing purposes
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+            HttpClient client = new HttpClient(handler);
+            HttpResponseMessage response = await client.GetAsync("https://localhost:44387/api/blogs");
 
-        }
-        public HttpResponseMessage Get(int id)
-        {
-            BlogContext context = new BlogContext();
-            Blog b1;
-            using (context)
+            if (response.IsSuccessStatusCode)
             {
-                b1 = context.blogs.SingleOrDefault(b => b.Id == id);
+                var blogs = await response.Content.ReadAsAsync<IEnumerable<Blog>>();
+                return View(blogs);
             }
-            if (b1 != null)
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, b1);
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound, "Blog with " + id.ToString() + " number not found");
+            else {
+                // handle error
+                return View("Error");
             }
         }
-        public HttpResponseMessage Post([FromBody]Blog blog)
+        public ActionResult Create()
         {
-            try
-            {
-                BlogContext context = new BlogContext();
-                using (context)
-                {
-                    context.blogs.Add(blog);
-                    context.SaveChanges();
-                }
-                var message = Request.CreateResponse(HttpStatusCode.Created, blog);
-                message.Headers.Location = new Uri(Request.RequestUri + blog.Id.ToString());
-                return message;
-            }
-            catch (DataException de)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, de);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
-            }
+            return View();
         }
-        [HttpPut]
-        public HttpResponseMessage Put(int id, [FromBody] Blog updatedBlog)
+        // POST: Blog/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(Blog blog)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
+                HttpClientHandler handler = new HttpClientHandler();
+                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
 
-                using (var context = new BlogContext())
+                // Save the blog to the database or perform necessary actions
+                using (var client = new HttpClient(handler))
                 {
-                    var existingBlog = context.blogs.Find(id);
-                    if (existingBlog == null)
-                    {       
-                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"Blog with ID {id} not found.");
+                    var json = JsonConvert.SerializeObject(blog);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    // Post the JSON data to the API endpoint
+                    var response = await client.PostAsync("https://localhost:44387/api/blogs", content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Redirect to a success page or another action
+                        return RedirectToAction("Index", "Blog");
                     }
-
-                    // Update existing blog with data from updatedBlog
-                    existingBlog.Title = updatedBlog.Title;
-                    existingBlog.Description = updatedBlog.Description;
-
-                    context.SaveChanges();
+                    else
+                    {
+                        // If the request was not successful, handle the error
+                        ViewBag.Error = "Failed to create blog. Please try again.";
+                        return View(blog);
+                    }
                 }
-
-                return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch (DbUpdateException ex)
-            {
-                // Handle database update exception
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occurred while updating the blog.");
-            }
-            catch (Exception ex)
-            {
-                // Handle other exceptions
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
+            // If the model state is not valid, redisplay the form with validation errors
+            return View(blog);
         }
     }
 }
