@@ -27,6 +27,6 @@ namespace IT_A_ApiApp01.Models
         [Column(TypeName = "nvarchar")]
         public string Password { get; set; }
 
-        public Blog[] Blogs;
+        public Blog[] Blogs;    
     }
 }

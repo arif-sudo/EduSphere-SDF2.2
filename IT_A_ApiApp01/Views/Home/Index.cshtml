@@ -1,8 +1,46 @@
 ﻿@{
     ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml"; // For admin views
+                                                   // or
+    Layout = "~/Views/Shared/_UserLayout.cshtml"; // For user views
+
+
 }
 
-<main class="home-page">
+<style>
+    .home-page {
+        text-align: center;
+        padding: 20px;
+    }
 
-    <h1>Home Page</h1>
+    .banner {
+        padding: 0px;
+        margin-bottom: 0px;
+        width: 100%; /* Full width */
+        height: auto; /* Auto adjust height */
+    }
+
+    .banner-image {
+        max-width: 100%; /* Ensure the image takes full width */
+        height: auto; /* Maintain aspect ratio */
+    }
+    .welcome-text {
+        font-family: Georgia;
+        font-weight: lighter;
+    }
+
+</style>    
+
+<main class="home-page">
+    <div class="banner text-center">
+        <h2 class="welcome-text m-0">Welcome to EduSphere </h2>
+        <h5 class="welcome-text mb-3">Our E-Learning Platform!</h5>
+    </div>
+    <!-- Adding the image -->
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <img src="~/Content/images/E-Learning2.jpg" alt="E-Learning Banner" class="banner-image" />
+
+        <p class="m-0 mt-3">Discover the future of learning with our e-learning platform. Dive into a world of knowledge and skills that empower you to succeed.</p>
+        <p class="m-0 mt-2">Engage with our interactive e-learning activities and transform your learning experience.</p>
+    </div>
 </main>

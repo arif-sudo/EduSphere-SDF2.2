@@ -175,6 +175,8 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\images\bg-1.jpg" />
+    <Content Include="Content\images\E-Learning.jpg" />
+    <Content Include="Content\images\E-Learning2.jpg" />
     <Content Include="Content\images\photo-2.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -215,6 +217,8 @@
     <Content Include="Views\Book\Details.cshtml" />
     <Content Include="Views\Book\Edit.cshtml" />
     <Content Include="Views\Book\Index.cshtml" />
+    <Content Include="Views\Shared\_UserLayout.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

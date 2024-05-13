@@ -1,4 +1,10 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿
+/*Test*/
+.navbar {
+    background-color: #EAEAEE !important ;
+}
+
+/* Set padding to keep content from hitting the edges */
 .body-content {
     margin-top: 15px;
     padding-left: 15px;
