@@ -1,4 +1,51 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>EduSphere @ViewBag.Title</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark py-3">
+            <div class="container">
+                @Html.ActionLink("EduSphere", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Auth", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Blogs", "Index", "Blog", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Users", "Index", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Books", "Index", "Book", new { area = "" }, new { @class = "nav-link" })</li>
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My EduSphere Application</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@
+
+
+@*Sidebar code*@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,28 +53,63 @@
     <title>EduSphere @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        /* Custom styles for sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0; /* Adjust as needed */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #343a40; /* Bootstrap dark background color */
+            color: #fff; /* Text color */
+            width: 200px; /* Sidebar width */
+        }
+
+        .sidebar-heading {
+            padding: 10px 0;
+            font-size: 24px;
+        }
+
+        .list-group-item {
+            color: rgba(255, 255, 255, 0.5); /* Lighter text color */
+            background-color: transparent; /* Transparent background */
+            border: none; /* No border */
+            font-size: 17px
+        }
+
+        .list-group-item:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Hover background color */
+        }
+
+        .active {
+            color: #fff; /* Active item color */
+            background-color: rgba(255, 255, 255, 0.2); /* Active item background color */
+        }
+
+        .content {
+            margin-left: 200px; /* Adjust for sidebar width */
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark py-3">
-        <div class="container">
-            @Html.ActionLink("EduSphere", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Auth", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Blogs", "Index", "Blog", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Users", "Index", "User", new { area = "" }, new { @class = "nav-link" })</li>
+    <div class="sidebar">
+        <div class="sidebar-heading text-center">EduSphere</div>
+        <div class="list-group">
+            @* Add sidebar links here *@
 
-
-                </ul>
-            </div>
+            <a href="@Url.Action("Index", "Home")" class="list-group-item text-center">Home</a>
+            <a href="@Url.Action("Login", "Auth")" class="list-group-item text-center">Auth</a>
+            <a href="@Url.Action("Index", "Blog")" class="list-group-item text-center">Blogs</a>
+            <a href="@Url.Action("Index", "User")" class="list-group-item text-center">Users</a>
+            <a href="@Url.Action("Index", "Book")" class="list-group-item text-center">Books</a>
         </div>
-    </nav>
-    <div class="container body-content">
+    </div>
+
+    <div class="content">
         @RenderBody()
         <hr />
         <footer>

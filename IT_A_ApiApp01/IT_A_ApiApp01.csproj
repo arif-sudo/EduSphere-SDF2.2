@@ -133,6 +133,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\BooksController.cs" />
     <Compile Include="API\UsersController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -141,15 +142,18 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="API\BlogsController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="API\ValuesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Data\BookContext.cs" />
     <Compile Include="Data\UserContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Data\BlogContext.cs" />
+    <Compile Include="Models\Books.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -206,11 +210,15 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Blog\Create.cshtml" />
+    <Content Include="Views\Book\Create.cshtml" />
+    <Content Include="Views\Book\Delete.cshtml" />
+    <Content Include="Views\Book\Details.cshtml" />
+    <Content Include="Views\Book\Edit.cshtml" />
+    <Content Include="Views\Book\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Default\" />
-    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />

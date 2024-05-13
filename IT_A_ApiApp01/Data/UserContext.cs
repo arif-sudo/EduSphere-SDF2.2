@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IT_A_ApiApp01.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -19,8 +20,9 @@ namespace IT_A_ApiApp01.Data
         {
         }
 
-        public System.Data.Entity.DbSet<IT_A_ApiApp01.Models.Users> users { get; set; }
+        public DbSet<Users> users { get; set; }
 
-        public System.Data.Entity.DbSet<IT_A_ApiApp01.Models.Blog> Blogs { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+
     }
 }
