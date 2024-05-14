@@ -143,6 +143,7 @@
     <Compile Include="API\BlogsController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\BookListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="API\ValuesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -219,6 +220,8 @@
     <Content Include="Views\Book\Index.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\BookList\Index.cshtml" />
+    <Content Include="Views\BookList\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
