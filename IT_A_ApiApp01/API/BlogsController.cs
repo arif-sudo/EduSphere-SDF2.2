@@ -87,7 +87,7 @@ namespace IT_A_ApiApp01.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException _ex)
             {
                 // Handle database update exception
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occurred while updating the blog.");

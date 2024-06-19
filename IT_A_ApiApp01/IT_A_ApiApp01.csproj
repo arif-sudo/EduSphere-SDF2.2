@@ -146,8 +146,10 @@
     <Compile Include="Controllers\BookListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="API\ValuesController.cs" />
+    <Compile Include="Controllers\ProgrammingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\BookContext.cs" />
+    <Compile Include="Data\ProgrammingContext.cs" />
     <Compile Include="Data\UserContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -155,6 +157,7 @@
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Data\BlogContext.cs" />
     <Compile Include="Models\Books.cs" />
+    <Compile Include="Models\Programming.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -226,6 +229,11 @@
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Programming\Create.cshtml" />
+    <Content Include="Views\Programming\Delete.cshtml" />
+    <Content Include="Views\Programming\Details.cshtml" />
+    <Content Include="Views\Programming\Edit.cshtml" />
+    <Content Include="Views\Programming\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

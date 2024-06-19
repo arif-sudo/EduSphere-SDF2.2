@@ -1,0 +1,87 @@
+﻿@*@model IEnumerable<IT_A_ApiApp01.Models.Programming>
+
+    @{
+        ViewBag.Title = "Programming Languages";
+    }
+
+    <h2>Programming Languages</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+
+@model IEnumerable<IT_A_ApiApp01.Models.Programming>
+
+@{
+    ViewBag.Title = "Programming Languages";
+}
+
+<h2>Programming Languages</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="@item.Image" width="250" height="250" class="card-img-top p-5" alt="@item.Name">
+                    <div class="card-body">
+                        <h5 class="card-title mt-2">@item.Name</h5>
+                        <p class="card-text">@ShortenDescription(item.Description)</p>
+                        <!-- Details Button -->
+                        <button type="button" class="btn btn-primary">
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "text-white" })
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@functions {
+    // Helper method to shorten description
+    string ShortenDescription(string description)
+    {
+        if (description.Length > 115)
+        {
+            return description.Substring(0, 115) + "...";
+        }
+        return description;
+    }
+}

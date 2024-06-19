@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using BCrypt.Net;
 using System.Diagnostics;
+// JWT tokens
 
 namespace IT_A_ApiApp01.Controllers
 {
@@ -48,6 +49,10 @@ namespace IT_A_ApiApp01.Controllers
                 TempData["ErrorMessage"] = "Invalid username or password.";
                 return RedirectToAction("Login");
             }
+
+            // Create JWT token
+            //var token = GenerateJwtToken(username);
+
             // Redirect to a different page upon successful login || Create json token
             return RedirectToAction("Index", "Home");
         }
